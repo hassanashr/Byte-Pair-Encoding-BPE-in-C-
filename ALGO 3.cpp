@@ -32,7 +32,7 @@ pair<int, string> MergeBestPair(multiset<pair<int,string>> & symbols, pair<pair<
 }
 multiset<pair<int,string>> Tokenize(string &text, map<string,int> & merges){
     multiset<pair<int,string>> symbols; //{position, string}
-    priority_queue<tuple<int, pair<int, string>, pair<int, string>>> symbolpairs;
+    priority_queue<tuple<int, pair<int, string>, pair<int, string>>> symbolpairs; //{score, left, right}
 
     for(int i = 0 ; i < text.size(); i++){
         string s = static_cast<string>(string(1,text[i]));
@@ -55,7 +55,7 @@ multiset<pair<int,string>> Tokenize(string &text, map<string,int> & merges){
 
         left_it = (left_it == symbols.begin()) ? symbols.end() : prev(left_it);
         right_it = (next(right_it) == symbols.end()) ? symbols.end() : next(right_it);
-        // 1 2 34 5
+      
         if (left_it != symbols.end()) {
             string prev_symbol = left_it->second;
             AddSymbolPair(symbolpairs, merges, prev_symbol, new_symbol.second, left_it->first, left.first);
